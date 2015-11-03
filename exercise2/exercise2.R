@@ -31,3 +31,12 @@ realAnswer <- (y > 0.5)
 comparison <- prediction == realAnswer
 accuracy <- length(comparison[comparison == TRUE]) / length(comparison)
 paste('accuracy: ', accuracy)
+
+
+
+
+summation <- (hypothesis(theta, x) - y) %*% x
+
+
+y
+derivativeOther(x, y, theta, nrow(x), 1)
