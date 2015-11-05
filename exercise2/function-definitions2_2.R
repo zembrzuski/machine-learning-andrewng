@@ -1,4 +1,4 @@
-# rm(list = ls())
+#rm(list = ls())
 
 mapFeature <- function(x) {
   cbind(
@@ -71,7 +71,7 @@ gradientDescent <- function(x, y, theta, alfa, nIter, lambda) {
 
     theta <- theta - alfa * c(theta0, thetaOthers)
   }
-  
-  print(theta)
-  cost
+ 
+  plot(cost) 
+  theta
 }
