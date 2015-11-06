@@ -1,4 +1,4 @@
-rm(list=ls())
+#rm(list=ls())
 setwd('/home/nozes/github-machine-learning-coursera/exercise2')
 
 data <- read.csv2('input/ex2data2.txt', sep = ',' , header = FALSE, stringsAsFactors = FALSE)

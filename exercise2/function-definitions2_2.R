@@ -35,7 +35,8 @@ mapFeature <- function(x) {
 
 
 hypothesis <- function(theta, x) {
-  z <- theta %*% t(x)
+  z <- x %*% t(theta)
+  #z <- theta %*% t(x)
   1/(1+exp(-z))
 }
 
