@@ -16,7 +16,7 @@ theta1 <- as.matrix(sapply(theta1, as.numeric))
 theta2 <- as.matrix(sapply(theta2, as.numeric))
 
 ### visualizing data
-indexNumber <- 2010
+indexNumber <- 1
 digit <- matrix(as.numeric(matrix(x[indexNumber,], ncol = 20)), ncol=20)
 rotate <- function(x) t(apply(x, 2, rev))
 image(rotate(digit))
@@ -24,22 +24,75 @@ image(rotate(digit))
 
 ### implementing forward propagation
 
-
-class(x[1,1])
-class(theta1[1,1])
-
-class(x)
-ncol(x)
-
 x <- cbind(rep(1, nrow(x)), x)
 
 dim(x)
 dim(t(theta1))
-class(theta1[1,1])
 outputLayerOne <- hypothesis(theta1, x)
 dim(outputLayerOne)
 inputLayerTwo <- cbind(1, outputLayerOne)
 
-outputLayerTwo <- hypothesis(theta2, inputLayerTwo)
-dim(outputLayerTwo)
-outputLayerTwo[1,] < 0.1
+dim(inputLayerTwo)
+dim(t(theta2))
+
+
+
+
+
+m <- nrow(inputLayerTwo)
+hipo <- hypothesis(theta2, inputLayerTwo)
+dim(hipo)
+
+
+
+# vou ter que criar uma matix de 5000x10
+
+yMatrix <- matrix(NA, nrow = 5000, ncol=10)
+for(i in 1:5000) {
+  yMatrix[i, ] <- createVectorForSinglePoint(y[i])
+}
+
+
+### agora vou ver se consigo subtrair
+
+dim(hipo)
+dim(yMatrix)
+
+vectorCostForEachPoint <- -yMatrix*log(hipo) - (1-yMatrix)*log(hipo)
+
+sum(vectorCostForEachPoint)/5000
+
+acertou <- 0
+for(nnn in 1:5000) {
+  if(which.max(yMatrix[nnn,]) == which.min(vectorCostForEachPoint[nnn,])) {
+    acertou <- acertou+1
+  } 
+}
+
+
+which.max(yMatrix[nnn,]) == which.min(hipo[nnn,])
+
+acertou
+4876/5000
+
+
+vectorCostForEachPoint <- NULL
+vectorCostForEachPoint <- -yMatrix*log(hipo) - (1-yMatrix)*log(hipo)
+
+sum(vectorCostForEachPoint)
+1/5000*sum(vectorCostForEachPoint)
+
+
+
+
+
+dim(vectorCostForEachPoint)
+
+vectorCostForEachPoint[1501,] < 1
+
+
+
+sum(matrix(c(1, 2, 3, 4), nrow=2))
+
+
+
