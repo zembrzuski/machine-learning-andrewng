@@ -28,7 +28,8 @@ x <- cbind(rep(1, nrow(x)), x)
 
 dim(x)
 dim(t(theta1))
-outputLayerOne <- hypothesis(theta1, x)
+
+outputLayerOne <- hypothesis(theta1, t(x))
 dim(outputLayerOne)
 inputLayerTwo <- cbind(1, outputLayerOne)
 
@@ -70,29 +71,15 @@ for(nnn in 1:5000) {
 }
 
 
-which.max(yMatrix[nnn,]) == which.min(hipo[nnn,])
-
 acertou
 4876/5000
 
 
-vectorCostForEachPoint <- NULL
-vectorCostForEachPoint <- -yMatrix*log(hipo) - (1-yMatrix)*log(hipo)
+############################################################
+############################################################
+############################################################
 
-sum(vectorCostForEachPoint)
-1/5000*sum(vectorCostForEachPoint)
-
-
+## tentando fazer a derivada agora o.O
 
 
-
-dim(vectorCostForEachPoint)
-
-vectorCostForEachPoint[1501,] < 1
-
-
-
-sum(matrix(c(1, 2, 3, 4), nrow=2))
-
-
-
+sigma3 <-

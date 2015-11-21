@@ -5,47 +5,27 @@ hypothesis <- function(theta, x) {
   1/(1+exp(-z))
 }
 
-# and
-theta = c(-30, 20, 20)
-x = rbind(c(1, 1, 0))
-hypothesis(theta, x)
-
-# or
-theta = c(-10, 20, 20)
-x = rbind(c(1, 0, 0))
-hypothesis(theta, x)
-
-
-thetas <- rbind(c(-30, 20, 20), c(-10, 20, 20))
-x = rbind(c(1, 0, 0))
-hypothesis(thetas, x)[1,]
-c(1, hypothesis(thetas, x)[1,])
-
-
-simpleNeuralNetwork <- function(x) {
-
-  # layer one
-  thetas <- rbind(c(-30, 20, 20), c(-10, 20, 20))
-  outputLayerOne <- hypothesis(thetas, x)
-  inputLayerTwo <- cbind(1, outputLayerOne)
-  print(inputLayerTwo > 0.9)
-
-  # layer two
-  thetas <- rbind(c(10, -20, -20))
-  output <- hypothesis(thetas, rbind(inputLayerTwo))
-    
-  print(output > 0.9)
-}
-
-
-
-
 ### 
 x = rbind(c(1, 0, 0), c(1, 0, 1))
-thetas <- rbind(c(-30, 20, 20), c(-10, 20, 20))
-outputLayerOne <- hypothesis(thetas, x)
+a1 = x
+theta1 <- rbind(c(-30, 20, 20), c(-10, 20, 20))
+a2 = cbind(1, hypothesis(theta1, x))
 
-inputLayerTwo <- cbind(1, outputLayerOne)
-thetas <- rbind(c(10, -20, -20))
 
-output <- hypothesis(thetas, rbind(inputLayerTwo))
+
+theta2 <- rbind(c(10, -20, -20))
+
+a3 = hypothesis(theta2, a2)
+y = rbind(1, 1)
+
+
+
+sigma3 <- a3 - y
+
+
+sigma2 <- t(theta2) %*% sigma3
+
+
+
+theta2
+sigma3
