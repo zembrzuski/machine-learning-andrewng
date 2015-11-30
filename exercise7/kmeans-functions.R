@@ -2,7 +2,7 @@
 # a list of 2-dimensional points, it returns the index of the closest
 # centroid
 findClosestCentroid <- function(point, centroids) {
-  squaredDifferences <- (matrix(data = rep(point, nrow(centroids)), ncol=2, byrow=TRUE) - centroids)^2
+  squaredDifferences <- (matrix(data = rep(point, nrow(centroids)), ncol=length(point), byrow=TRUE) - centroids)^2
   foo <- sqrt(rowSums(squaredDifferences))
   which.min(foo)
 }
@@ -27,7 +27,7 @@ findClosestCentroids <- function(X, centroids) {
 
 
 computeCentroids <- function(X, clusters, numberOfCentroids) {
-  newCentroids <- matrix(nrow=numberOfCentroids, ncol=2)
+  newCentroids <- matrix(nrow=numberOfCentroids, ncol=ncol(X))
   
   for(i in 1:numberOfCentroids) {
     clusterPoints <- X[which(clusters == i),]
@@ -48,12 +48,18 @@ knn <- function(X, numberOfCentroids) {
   newCluster <- findClosestCentroids(X, centroids)
   cluster <- rep(0, nrow(X))
   
-  while(!all(cluster == newCluster)) {
+  numberOfIterations <- 0
+  while(!all(cluster == newCluster) && numberOfIterations < 80) {
+    numberOfIterations <- numberOfIterations + 1
+    print(numberOfIterations)
     cluster <- newCluster
     plot(X, col=cluster)
- #   Sys.sleep(2)
     centroids <- computeCentroids(X, cluster, numberOfCentroids)
     newCluster <- findClosestCentroids(X, centroids)
   }
-   
+  
+  print('---')
+  print(centroids)
+  print('---')
+  cluster
 }
