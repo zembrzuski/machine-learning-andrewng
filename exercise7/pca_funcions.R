@@ -1,5 +1,3 @@
-rm(list = ls())
-
 # this is the object that will be returned from calling chooseNumberOfK
 # why? this funcion do all the pca job and returns z (the principal components)
 # and ureduce (the matrix that is used to reconstruct the data)
@@ -43,6 +41,7 @@ doTheChecking <- function(svd, numberOfDimensions, percentual) {
   numerator <- sum(diagonal[1:numberOfDimensions])
   denominator <- sum(diagonal)
   result <- 1 - (numerator/denominator)
+  print(result)
   result <= percentual
 }
 
@@ -54,7 +53,7 @@ chooseNumberOfK <- function(normalizedX, variabilidadeMaxima) {
   answerAchieved <- FALSE
   z <- NA
   ureduce <- NA
-  numberOfDimensions <- 1
+  numberOfDimensions <- 300
   while(!answerAchieved) {
     print(paste('trying pca with', numberOfDimensions))
     svd <- calculateSvd(normalizedX)
@@ -66,6 +65,25 @@ chooseNumberOfK <- function(normalizedX, variabilidadeMaxima) {
 
   print(paste('pca got with number of dimensions: ', numberOfDimensions -1))
   
+  returnOfPca <- new('returnOfPca')
+  returnOfPca@ureduce <- ureduce
+  returnOfPca@z <- z
+  returnOfPca
+}
+
+
+
+
+doPca <- function(normalizedX, variabilidadeMaxima, numberOfDimensions) {
+  answerAchieved <- FALSE
+  z <- NA
+  ureduce <- NA
+  
+  svd <- calculateSvd(normalizedX)
+  ureduce <- calculateUreduce(svd, numberOfDimensions)
+  z <- calculateZ(ureduce, normalizedX)
+  answerAchieved <- doTheChecking(svd, numberOfDimensions, variabilidadeMaxima)
+
   returnOfPca <- new('returnOfPca')
   returnOfPca@ureduce <- ureduce
   returnOfPca@z <- z

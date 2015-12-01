@@ -1,4 +1,3 @@
-rm(list = ls())
 setwd('/home/nozes/github-machine-learning-coursera/exercise7')
 source('pca_funcions.R')
 
