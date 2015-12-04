@@ -1,3 +1,5 @@
+setClass('returnGradientDescent', representation(x = 'matrix', theta = 'matrix'))
+
 hasRated <- function(y) {
   (y != -1)*1  
 }
@@ -19,4 +21,26 @@ gradientX <- function(x, y, r, theta, lambda) {
 gradientTheta <- function(x, y, r, theta, lambda) {
   matrix <- t((x %*% t(theta) - y) * r) %*% x
   matrix + lambda * theta
+}
+
+
+
+gradientDescent <- function(x, y, r, theta, lambda, alfa, nIter) {
+  m <- nrow(x)
+  cost <- rep(NA, nIter)
+  
+  for(i in 1:nIter) {
+    cost[i] <- costFunction(x, y, r, theta, lambda)
+    
+    theta <- theta - alfa * gradientTheta(x, y, r, theta, lambda)
+    x <- x - alfa * gradientX(x, y, r, theta, lambda)
+  }
+  
+  plot(cost)  
+  print(cost[nIter])
+  
+  returnOfGradientDescent <- new('returnGradientDescent')
+  returnOfGradientDescent@x <- x
+  returnOfGradientDescent@theta <- theta
+  returnOfGradientDescent
 }

@@ -40,10 +40,45 @@ x = rbind(
   runif(3, min = -1, max=1)
 )
 
-costFunction(x, y, r, theta, 50)
+### trying gradient checking now
 
-gradientX(x, y, r, theta, 2)
-gradientTheta(x, y, r, theta, 2)
+epsilon <- 0.001
+lambda <- 0.5
+i <- 2
+j <- 2
+xMaisUmPouco <- x
+xMaisUmPouco[i, j] <- xMaisUmPouco[i, j] + epsilon
+
+xMenosUmPouco <- x
+xMenosUmPouco[i, j] <- xMenosUmPouco[i, j] - epsilon
+
+(costFunction(xMaisUmPouco, y, r, theta, lambda) - costFunction(xMenosUmPouco, y, r, theta, lambda)) / (2*epsilon)
+gradientX(x, y, r, theta, lambda)
 
 
-## i'll try gradient checking now
+
+
+
+
+i <- 2
+j <- 2
+epsilon <- 0.001
+thetaMaisUmPouco <- theta
+thetaMaisUmPouco[i, j] <- thetaMaisUmPouco[i, j] + epsilon
+
+thetaMenosUmPouco <- theta
+thetaMenosUmPouco[i, j] <- thetaMenosUmPouco[i, j] - epsilon
+
+
+(costFunction(x, y, r, thetaMaisUmPouco, lambda) - costFunction(x, y, r, thetaMenosUmPouco, lambda)) / (2*epsilon)
+gradientTheta(x, y, r, theta, lambda)
+
+
+
+#####  trying gradient descent now
+
+returnOfGradientDescent <- gradientDescent(x, y, r, theta, 0.1, 0.1, 30)
+
+myPrediction <- returnOfGradientDescent@x %*% t(returnOfGradientDescent@theta)
+
+
