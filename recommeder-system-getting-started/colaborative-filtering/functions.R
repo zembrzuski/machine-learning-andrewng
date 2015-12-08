@@ -44,3 +44,31 @@ gradientDescent <- function(x, y, r, theta, lambda, alfa, nIter) {
   returnOfGradientDescent@theta <- theta
   returnOfGradientDescent
 }
+
+
+
+computeMeans <- function(x) {
+  apply(x, 1, function(x){ 
+    sum(x[x != -1]) / length(x[x != -1])
+  })
+}
+
+### I am too tired to implement this funcion in a better way
+### someday I'll implement this without for loops
+normalizeByTheMean <- function(y) {
+  normalizedMatrix <- matrix(data = NA, nrow = nrow(y), ncol = (y))
+  means <- computeMeans(y)
+  
+  for(i in 1:nrow(y)) {
+    mean <- means[i]
+    for(j in 1:ncol(y)) {
+      normalizedMatrix[i, j] <- y[i, j] - mean
+      
+      if(y[i, j] == -1) {
+        normalizedMatrix[i, j] <- -1
+      }
+    }
+  }
+  
+  normalizedMatrix
+}

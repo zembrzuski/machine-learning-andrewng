@@ -30,7 +30,7 @@ theta <- rbind(
 
 
 # this is the x matrix. it has 5x3 dimensions
-# because there are 5 users and I have choosen
+# because there are 5 movies and I have choosen
 # 3 for the number of thetas
 x = rbind(
   runif(3, min = -1, max=1),
